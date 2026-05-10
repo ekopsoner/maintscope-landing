@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MaintScope — Maintenance Liability Audits for Cafe Buyers (NSW)</title>
+<meta name="description" content="Before you sign that cafe lease, find out what it really costs to run. $299 maintenance scope review by an ARC-licensed HVAC tradie. 48hr turnaround.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e14;
+    --bg-2: #11161e;
+    --card: #161c26;
+    --border: #232b38;
+    --text: #e8edf3;
+    --muted: #8794a8;
+    --accent: #f6a623;
+    --accent-soft: #fcd47d;
+    --ok: #4ade80;
+    --sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { color: var(--accent-soft); }
+
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* Nav */
+  .nav {
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 0;
+    background: rgba(10,14,20,0.85);
+    backdrop-filter: blur(6px);
+    position: sticky; top: 0; z-index: 10;
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+  .brand { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; }
+  .brand span { color: var(--accent); }
+  .nav a.cta {
+    background: var(--accent); color: #0a0e14; padding: 0.5rem 1rem;
+    border-radius: 6px; font-weight: 600; font-size: 0.9rem;
+  }
+  .nav a.cta:hover { background: var(--accent-soft); color: #0a0e14; }
+
+  /* Hero */
+  .hero { padding: 5rem 0 4rem; border-bottom: 1px solid var(--border); }
+  .tag {
+    display: inline-block; font-family: var(--mono); font-size: 0.75rem;
+    color: var(--accent); border: 1px solid var(--accent); padding: 0.25rem 0.75rem;
+    border-radius: 4px; margin-bottom: 1.5rem; letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 800;
+    line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 1.25rem;
+  }
+  h1 .hl { color: var(--accent); }
+  .sub {
+    font-size: 1.15rem; color: var(--muted); max-width: 640px;
+    margin-bottom: 2rem;
+  }
+  .cta-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 0.85rem 1.6rem; border-radius: 8px;
+    font-weight: 600; font-size: 1rem; transition: all 0.15s ease;
+  }
+  .btn-primary {
+    background: var(--accent); color: #0a0e14;
+  }
+  .btn-primary:hover { background: var(--accent-soft); color: #0a0e14; }
+  .btn-secondary {
+    background: transparent; color: var(--text); border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Sections */
+  section { padding: 4rem 0; border-bottom: 1px solid var(--border); }
+  section h2 {
+    font-size: 1.6rem; font-weight: 700; margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  section .lead { color: var(--muted); margin-bottom: 2rem; max-width: 640px; }
+
+  /* What you'll know */
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.5rem;
+  }
+  .card h3 {
+    font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem;
+    color: var(--accent-soft);
+  }
+  .card p { color: var(--muted); font-size: 0.92rem; }
+
+  /* How it works */
+  .steps { display: grid; gap: 1.25rem; }
+  .step {
+    display: grid; grid-template-columns: auto 1fr; gap: 1.25rem; align-items: start;
+  }
+  .step-n {
+    font-family: var(--mono); font-size: 0.85rem; color: var(--accent);
+    background: var(--card); border: 1px solid var(--accent);
+    border-radius: 50%; width: 2.25rem; height: 2.25rem;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600;
+  }
+  .step h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.25rem; }
+  .step p { color: var(--muted); font-size: 0.95rem; }
+
+  /* Sample */
+  .sample {
+    background: var(--bg-2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.75rem; font-family: var(--mono);
+    font-size: 0.85rem; color: var(--muted); line-height: 1.7;
+    white-space: pre-wrap;
+  }
+  .sample .h { color: var(--accent-soft); font-weight: 600; }
+  .sample .w { color: #f87171; }
+  .sample .ok { color: var(--ok); }
+
+  /* About / Credentials */
+  .creds { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+  .pill {
+    font-family: var(--mono); font-size: 0.78rem; color: var(--text);
+    background: var(--card); border: 1px solid var(--border);
+    padding: 0.3rem 0.7rem; border-radius: 999px;
+  }
+
+  /* Price */
+  .price-card {
+    background: linear-gradient(135deg, var(--card), var(--bg-2));
+    border: 1px solid var(--accent);
+    border-radius: 12px; padding: 2rem; text-align: center;
+  }
+  .price { font-size: 3rem; font-weight: 800; color: var(--accent); letter-spacing: -0.03em; }
+  .price small { font-size: 1rem; color: var(--muted); font-weight: 400; }
+  .price-card p { color: var(--muted); margin: 0.75rem 0 1.5rem; }
+
+  /* FAQ */
+  .faq details {
+    border-bottom: 1px solid var(--border); padding: 1rem 0;
+  }
+  .faq summary {
+    cursor: pointer; font-weight: 600; font-size: 1rem;
+    list-style: none; display: flex; justify-content: space-between;
+  }
+  .faq summary::after { content: '+'; color: var(--accent); }
+  .faq details[open] summary::after { content: '−'; }
+  .faq details[open] summary { color: var(--accent); }
+  .faq details p { color: var(--muted); margin-top: 0.75rem; font-size: 0.95rem; }
+
+  /* Footer */
+  footer {
+    padding: 2rem 0; color: var(--muted); font-size: 0.85rem;
+    text-align: center; border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--muted); }
+  footer a:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <div class="brand">Maint<span>Scope</span></div>
+    <a href="#buy" class="cta">Get my audit</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="tag">NSW commercial leases · cafe edition</span>
+    <h1>Before you sign that cafe lease, find out what it'll <span class="hl">actually cost to run</span>.</h1>
+    <p class="sub">
+      A $299 maintenance scope review by an ARC-licensed HVAC tradie with 10+ years on the tools.
+      We read your lease and the equipment, then tell you exactly what you'll be liable for —
+      with real NSW dollar figures. 48-hour turnaround.
+    </p>
+    <div class="cta-row">
+      <a href="#buy" class="btn btn-primary">Order an audit — $299</a>
+      <a href="#sample" class="btn btn-secondary">See a sample report</a>
+    </div>
+  </div>
+</header>
+
+<section id="what">
+  <div class="wrap">
+    <h2>What you'll know before you sign</h2>
+    <p class="lead">
+      Most cafe sales include a maintenance schedule buried in the lease. Brokers don't price the
+      hidden costs into the asking. We do.
+    </p>
+    <div class="grid">
+      <div class="card">
+        <h3>What you're liable for</h3>
+        <p>HVAC, refrigeration, grease trap, exhaust hood, hot water, electrical compliance — what the schedule says is yours vs. the landlord's, in plain English.</p>
+      </div>
+      <div class="card">
+        <h3>What it costs in NSW</h3>
+        <p>Real annual dollar ranges per system, regional adjustments, what a fair quote looks like vs. an inflated one.</p>
+      </div>
+      <div class="card">
+        <h3>The rip-off list</h3>
+        <p>The specific charges tradies and managing agents pad in commercial schedules. Six of them are almost always present.</p>
+      </div>
+      <div class="card">
+        <h3>Questions for the seller</h3>
+        <p>What to ask before you sign — equipment age, last service, ARC certificates, outstanding works. Specifics that change the number on the table.</p>
+      </div>
+      <div class="card">
+        <h3>Lease red flags</h3>
+        <p>Clauses that quietly transfer landlord obligations onto you. We flag them; you take them to your lawyer.</p>
+      </div>
+      <div class="card">
+        <h3>Year-one budget</h3>
+        <p>A realistic 12-month maintenance budget so you can stress-test the asking price against actual operating cost.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <h2>How it works</h2>
+    <p class="lead">Three steps. No site visit needed.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">1</div>
+        <div>
+          <h3>You send us the lease + listing</h3>
+          <p>Drag your lease PDF + the sale listing into a form after checkout. We do the rest.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div>
+          <h3>We do the audit (48 hours)</h3>
+          <p>Tradie + 20 years of NSW HVAC + ARC pricing data read every line. We cross-check equipment ages, suburb-specific risk (coastal corrosion, strip-mall HVAC loads), and known broker tricks.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div>
+          <h3>You get the PDF report</h3>
+          <p>A clear written breakdown, dollar figures, questions to ask, red flags, and a year-one budget. Take it to your accountant, your lawyer, or back to the broker.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sample">
+  <div class="wrap">
+    <h2>Sample excerpt</h2>
+    <p class="lead">One page from a typical NSW cafe audit. Real format, names removed.</p>
+    <div class="sample">
+<span class="h">2.3 Refrigeration — cool room + 2× display fridges</span>
+
+<span class="w">⚠ Red flag</span>  Schedule item 4.2 makes tenant responsible for "all refrigeration
+       maintenance and consumables, including refrigerant losses."
+
+       <span class="w">Refrigerant losses are a landlord-side capital cost in most commercial</span>
+       <span class="w">leases. This wording shifts ~$1,200–$2,400/yr of risk onto you for a</span>
+       <span class="w">system you didn't choose and can't replace.</span>
+
+<span class="h">Equipment</span>      Skope SK650 single-door cool room (8 years old, R-404A).
+                Hussmann display × 2 (R-134a, age unconfirmed — request invoices).
+
+<span class="h">Cost picture</span>   Annual service (ARC-licensed): <span class="ok">$420–$640</span>
+                Refrigerant top-up (R-404A is phase-out, $180–$260/kg): <span class="ok">$0–$520</span>
+                Reasonable annual line item: <span class="ok">$650–$1,100</span>
+                <span class="w">Schedule's quoted "maintenance fee": $1,890 — high end</span>
+
+<span class="h">Ask the seller</span> Last ARC service docket + leak test certificate.
+                Compressor brand and date of last replacement.
+                Whether the R-404A system has a defined retrofit budget.
+    </div>
+  </div>
+</section>
+
+<section id="who">
+  <div class="wrap">
+    <h2>Who's behind it</h2>
+    <p class="lead">
+      Jacob, Central Coast NSW. ARC-licensed refrigeration tradie. 10+ years on commercial HVAC,
+      refrigeration, and hospitality fit-outs. MaintScope is what I wish my cafe-owner mates had
+      seen the line items on before they signed.
+    </p>
+    <div class="creds">
+      <span class="pill">ARC AU34267</span>
+      <span class="pill">NSW HVAC</span>
+      <span class="pill">10+ yrs commercial</span>
+      <span class="pill">Cafe + retail + hospitality</span>
+    </div>
+  </div>
+</section>
+
+<section id="buy">
+  <div class="wrap">
+    <div class="price-card">
+      <h2 style="margin-bottom: 0.5rem;">Cafe Maintenance Scope Audit</h2>
+      <div class="price">$299 <small>AUD</small></div>
+      <p>Pay once. 48-hour turnaround. Refund if the audit doesn't find at least one cost item the listing didn't disclose.</p>
+      <a href="#" class="btn btn-primary" id="checkout-link">Get my audit →</a>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="faq">
+  <div class="wrap">
+    <h2>Common questions</h2>
+    <details>
+      <summary>Is this legal advice?</summary>
+      <p>No. This is a maintenance scope review — a technical breakdown of what the property and equipment will cost to run, and where the lease shifts costs onto the tenant. We don't tell you whether to sign or not, and we flag any clause that needs a lawyer. Take the report to a commercial leasing solicitor before signing.</p>
+    </details>
+    <details>
+      <summary>How do you know what NSW cafes actually cost to run?</summary>
+      <p>10+ years on the tools across hospitality sites in Sydney, Newcastle, and the Central Coast. We've quoted, serviced, and replaced this gear ourselves. The dollar ranges in the report are what we'd quote — not what a managing agent will tell you.</p>
+    </details>
+    <details>
+      <summary>Do you also do gyms / retail / restaurants?</summary>
+      <p>Cafes first. Restaurants, gyms, and retail coming soon — email if you have one in front of you.</p>
+    </details>
+    <details>
+      <summary>Refund policy?</summary>
+      <p>If our audit doesn't flag at least one cost item the listing or seller failed to disclose, full refund. We've never not flagged something.</p>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    MaintScope · EKOPS IT Services · Central Coast NSW · ABN coming<br>
+    <a href="mailto:hello@maintscope.com.au">hello@maintscope.com.au</a> ·
+    <a href="#">Privacy</a>
+  </div>
+</footer>
+
+</body>
+</html>
