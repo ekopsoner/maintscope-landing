@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MaintScope — Audit intake</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0a0e14; --card:#161c26; --border:#232b38; --text:#e8edf3; --muted:#8794a8; --accent:#f6a623; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Inter',system-ui,sans-serif; line-height:1.5; padding:2rem 1rem; }
+  .wrap { max-width:680px; margin:0 auto; }
+  h1 { font-size:1.8rem; font-weight:700; margin-bottom:0.5rem; letter-spacing:-0.02em; }
+  h1 .hl { color:var(--accent); }
+  .sub { color:var(--muted); margin-bottom:2rem; }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:2rem; }
+  label { display:block; font-size:0.85rem; font-weight:600; margin-bottom:0.4rem; color:var(--text); }
+  label .req { color:var(--accent); }
+  label .hint { font-weight:400; color:var(--muted); font-size:0.8rem; }
+  input, textarea, select { width:100%; background:#0e131b; color:var(--text);
+      border:1px solid var(--border); border-radius:6px; padding:0.7rem 0.9rem;
+      font-family:inherit; font-size:0.95rem; margin-bottom:1.25rem; }
+  textarea { min-height:120px; font-family:'JetBrains Mono',monospace; font-size:0.85rem; resize:vertical; }
+  input:focus, textarea:focus, select:focus { outline:0; border-color:var(--accent); }
+  .row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  @media (max-width:560px) { .row { grid-template-columns:1fr; } }
+  .submit { width:100%; background:var(--accent); color:#0a0e14; border:0; padding:0.95rem;
+      border-radius:8px; font-size:1rem; font-weight:600; cursor:pointer; }
+  .submit:hover { background:#fcd47d; }
+  .submit:disabled { opacity:0.5; cursor:not-allowed; }
+  .note { background:#0e131b; border:1px solid var(--border); border-radius:6px;
+      padding:1rem; color:var(--muted); font-size:0.85rem; margin-bottom:1.5rem; }
+  .ok { color:#4ade80; }
+  .err { color:#ef4444; }
+  #status { margin-top:1rem; font-size:0.9rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Your audit <span class="hl">intake</span></h1>
+  <p class="sub">Drop the details below. We'll have your audit back within 48 hours.</p>
+
+  <div class="note">
+    Lease text is the highest-leverage input — paste any clauses dealing with
+    <strong>maintenance, outgoings, repairs, or make-good</strong>. If you only have a PDF,
+    paste the key sections. We'll flag anything we can't see.
+  </div>
+
+  <form class="card" id="intake">
+    <label>Cafe address <span class="req">*</span></label>
+    <input name="address" required placeholder="123 Smith St, Sydney NSW 2000">
+
+    <div class="row">
+      <div>
+        <label>Suburb <span class="req">*</span></label>
+        <input name="suburb" required placeholder="e.g. Newtown">
+      </div>
+      <div>
+        <label>Asking price (AUD) <span class="req">*</span></label>
+        <input type="number" name="asking_price_aud" required placeholder="280000" min="1000">
+      </div>
+    </div>
+
+    <label>Listing URL <span class="hint">(Bsale, Seek Business, Anybusiness, etc.)</span></label>
+    <input name="listing_url" placeholder="https://...">
+
+    <label>Building type</label>
+    <select name="building_type">
+      <option value="">(unknown)</option>
+      <option>Strip mall / strip shop</option>
+      <option>Arcade / mall internal</option>
+      <option>Shopping centre</option>
+      <option>Freestanding building</option>
+      <option>Mixed-use commercial</option>
+    </select>
+
+    <label>Equipment you know about <span class="hint">(cool room, rooftop AC, etc. — or skip)</span></label>
+    <textarea name="equipment_known" placeholder="e.g. 1 walk-in cool room, 3 display fridges, rooftop AC, gas cooktop + fryer, kitchen exhaust"></textarea>
+
+    <label>Lease excerpts — maintenance, outgoings, make-good, repair clauses <span class="hint">(paste verbatim)</span></label>
+    <textarea name="lease_excerpts" placeholder="Paste the maintenance schedule and any clauses dealing with outgoings, repair, or make-good. The more we can see, the more we can flag."></textarea>
+
+    <label>Seller's running cost figures <span class="hint">(if you have them)</span></label>
+    <textarea name="seller_figures" placeholder="e.g. Listing says $12k/yr outgoings; broker mentioned $4k HVAC service"></textarea>
+
+    <label>What are you specifically worried about? <span class="hint">(free text)</span></label>
+    <textarea name="buyer_concerns" placeholder="e.g. The cool room looks old. Owner mentioned 'small refrigerant issue last year.' Lease has a clause about 'all maintenance and replacement' that worried me."></textarea>
+
+    <button type="submit" class="submit" id="submit-btn">Submit audit details →</button>
+    <div id="status"></div>
+  </form>
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const session_id = params.get('session_id');
+  const GATEWAY = 'https://CHANGE-ME-AT-DEPLOY.trycloudflare.com';  // updated on each deploy
+  const form = document.getElementById('intake');
+  const status = document.getElementById('status');
+  const btn = document.getElementById('submit-btn');
+
+  if (!session_id) {
+    status.innerHTML = '<span class="err">Missing session id. If you reached this page without paying, please complete checkout first.</span>';
+    btn.disabled = true;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    btn.disabled = true;
+    status.textContent = 'Submitting...';
+    const data = Object.fromEntries(new FormData(form));
+    data.session_id = session_id;
+    try {
+      const r = await fetch(GATEWAY + '/admin/intake', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (r.ok) {
+        status.innerHTML = '<span class="ok">Got it. Your audit is in the queue — we\'ll email it within 48 hours.</span>';
+      } else {
+        status.innerHTML = '<span class="err">Something went wrong (' + r.status + '). Reply to your receipt email and we\'ll sort it.</span>';
+        btn.disabled = false;
+      }
+    } catch (err) {
+      status.innerHTML = '<span class="err">Network error: ' + err.message + '</span>';
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
