@@ -64,15 +64,28 @@
     <label>Listing URL <span class="hint">(Bsale, Seek Business, Anybusiness, etc.)</span></label>
     <input name="listing_url" placeholder="https://...">
 
-    <label>Building type</label>
-    <select name="building_type">
-      <option value="">(unknown)</option>
-      <option>Strip mall / strip shop</option>
-      <option>Arcade / mall internal</option>
-      <option>Shopping centre</option>
-      <option>Freestanding building</option>
-      <option>Mixed-use commercial</option>
-    </select>
+    <div class="row">
+      <div>
+        <label>Business type <span class="req">*</span></label>
+        <select name="business_type" required>
+          <option value="cafe">Cafe / coffee shop</option>
+          <option value="gym">Gym / fitness centre / studio</option>
+          <option value="childcare">Childcare / long day care / OOSH</option>
+          <option value="">Other (we'll infer)</option>
+        </select>
+      </div>
+      <div>
+        <label>Building type</label>
+        <select name="building_type">
+          <option value="">(unknown)</option>
+          <option>Strip mall / strip shop</option>
+          <option>Arcade / mall internal</option>
+          <option>Shopping centre</option>
+          <option>Freestanding building</option>
+          <option>Mixed-use commercial</option>
+        </select>
+      </div>
+    </div>
 
     <label>Equipment you know about <span class="hint">(cool room, rooftop AC, etc. — or skip)</span></label>
     <textarea name="equipment_known" placeholder="e.g. 1 walk-in cool room, 3 display fridges, rooftop AC, gas cooktop + fryer, kitchen exhaust"></textarea>
@@ -94,7 +107,7 @@
 <script>
   const params = new URLSearchParams(window.location.search);
   const session_id = params.get('session_id');
-  const GATEWAY = 'https://CHANGE-ME-AT-DEPLOY.trycloudflare.com';  // updated on each deploy
+  const GATEWAY = window.location.origin;  // served by the gateway itself
   const form = document.getElementById('intake');
   const status = document.getElementById('status');
   const btn = document.getElementById('submit-btn');
