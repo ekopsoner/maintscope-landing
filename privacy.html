@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy — MaintScope</title>
+<meta name="description" content="What MaintScope collects, how it's used, and your rights under the Australian Privacy Act.">
+<link rel="stylesheet" href="legal.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <div class="brand">Maint<span>Scope</span></div>
+    <a class="back" href="index.html">← Back to MaintScope</a>
+  </div>
+</nav>
+
+<main>
+  <div class="wrap">
+    <h1>Privacy</h1>
+    <p class="updated">Last updated 13 May 2026.</p>
+
+    <p>We collect only what we need to deliver your audit. Plain breakdown below.</p>
+
+    <h2>What we collect</h2>
+    <ul>
+      <li>Your email address (provided at Stripe checkout)</li>
+      <li>The intake form you submit after payment — premises address, business type, equipment notes, lease excerpts, seller's stated figures, your concerns</li>
+      <li>Stripe payment metadata (session ID, payment intent ID, amount, currency)</li>
+      <li>Basic server logs (IP address, user agent, request paths) for security and abuse detection</li>
+    </ul>
+    <p>We don't run third-party tracking, advertising pixels, or analytics scripts on this site.</p>
+
+    <h2>How we use it</h2>
+    <p>The intake data is fed into our audit generation pipeline. That pipeline includes a large language model hosted by Ollama Cloud (Moonshot AI's Kimi K2), which we use to draft the report against our internal knowledge base. The model provider may process the intake content as part of the inference call. We do not use it to train any model.</p>
+    <p>The final report is reviewed by the MaintScope team before it's sent to you.</p>
+
+    <h2>Where it lives</h2>
+    <p>All payment, intake, and audit records are stored on infrastructure operated by MaintScope in Australia. We do not sell, rent, or share your data with anyone except:</p>
+    <ul>
+      <li>Stripe (payment processing)</li>
+      <li>The LLM provider (for audit drafting, as above)</li>
+      <li>Where required by Australian law</li>
+    </ul>
+
+    <h2>How long we keep it</h2>
+    <p>We retain payment and audit records for 7 years to meet Australian tax and consumer law obligations.</p>
+
+    <h2>Your rights</h2>
+    <p>Under the Privacy Act 1988 (Cth) you can:</p>
+    <ul>
+      <li>Ask for a copy of the personal information we hold about you</li>
+      <li>Ask us to correct anything wrong</li>
+      <li>Ask us to delete your record (subject to the 7-year retention obligation above)</li>
+    </ul>
+    <p>Email <a href="mailto:ekopsitservices@gmail.com">ekopsitservices@gmail.com</a> to exercise any of these. We get back to you inside one business day.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="index.html">MaintScope</a>
+    <a href="terms.html">Terms</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="refund.html">Refunds</a>
+  </div>
+</footer>
+
+</body>
+</html>
